@@ -1,7 +1,17 @@
 $(document).ready(function () {
 
+    var mySearchs = ["Captian Picard", "Funny", "Sponge Bob", "Why Me!", "Please"]
 
 
+    // function to loop through my search terms and create the buttons
+
+    for (i = 0; i < mySearchs.length; i++) {
+        var a = $("<a>");
+        a.addClass("btn btn-primary btn-lg m-1 search");
+        a.attr("role", "button");
+        a.text(mySearchs[i]);
+        $(".jumbotron").append(a);
+    }
 
     // create on click event to grab search box input
     $("#submit").on("click", function (event) {
