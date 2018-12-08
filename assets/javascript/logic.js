@@ -30,11 +30,10 @@ $(document).ready(function () {
     //create function to search giphy and generate imgs
 
     function giphySearch() {
-        $(".row").empty()
         // create varables to hold search and url
         var search = $(this).text()
         var apiKey = "3tQurqegTvlciDFPe3A3Wj1tX6KUQl99";
-        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + search + "&api_key=" + apiKey + "&limit=30";
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + search + "&api_key=" + apiKey + "&limit=10";
 
         // create ajax call to giphy
         $.ajax({
@@ -56,7 +55,7 @@ $(document).ready(function () {
                 p = $("<p>").text("Rating " + results[i].rating)
                 newDiv.append(imgTag);
                 newDiv.append(p);
-                $(".row").append(newDiv);
+                $(".row").prepend(newDiv);
             }
             $("img").on("click", function () {
                 imgState = $(this).attr("data-state");
