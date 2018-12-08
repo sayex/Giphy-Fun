@@ -24,7 +24,7 @@ $(document).ready(function () {
         // create varables to hold search and url
         var search = $(this).text()
         var apiKey = "3tQurqegTvlciDFPe3A3Wj1tX6KUQl99";
-        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + search + "&api_key=" + apiKey + "&limit=30";
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + search + "&api_key=" + apiKey + "&limit=30";
 
         // create ajax call to giphy
         $.ajax({
