@@ -89,7 +89,7 @@ $(document).ready(function () {
         searchButtons(buttonVal)
     })
 
-    //script to liten when the buttons are clicked
+    //script to listen when the buttons are clicked
     $(document).on("click", ".search", giphySearch)
 
     //when page loads create the buttons in the array
