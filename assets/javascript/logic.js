@@ -28,7 +28,6 @@ $(document).ready(function () {
 
     }
 
-
     // funtion to create images from ajax call
     function imgResults(results) {
         for (i = 0; i < results.length; i++) {
