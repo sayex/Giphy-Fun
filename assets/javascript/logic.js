@@ -2,30 +2,63 @@ $(document).ready(function () {
 
     var mySearchs = ["Captian Picard", "Funny", "Sponge Bob", "Why Me!", "Please"]
 
-
-    // function to loop through my search terms and create the buttons
-
-    for (i = 0; i < mySearchs.length; i++) {
-        var a = $("<a>");
-        a.addClass("btn btn-primary btn-lg m-1 search");
-        a.attr("role", "button");
-        a.text(mySearchs[i]);
-        $(".jumbotron").append(a);
+    //function helper to create buttons
+    function searchButtonHelper() {
+        $("#jumbotron").empty();
+        for (i = 0; i < mySearchs.length; i++) {
+            var a = $("<a>");
+            a.addClass("btn btn-primary btn-lg m-1 search");
+            a.attr("role", "button");
+            a.text(mySearchs[i]);
+            $("#jumbotron").append(a);
+        }
     }
 
-    // create on click event to grab search box input
-    $("#submit").on("click", function (event) {
-        event.preventDefault();
-        var buttonVal = $("#input").val();
-        $("#input").val("")
+    //function to create buttons
+    function searchButtons(buttonVal) {
+
+        if (typeof (buttonVal) == "undefined") {
+            $("#jumbotron").empty();
+            searchButtonHelper();
+        } else {
+            mySearchs.push(buttonVal)
+            $("#jumbotron").empty();
+            searchButtonHelper();
+        }
+
+    }
 
 
-        var a = $("<a>");
-        a.addClass("btn btn-primary btn-lg m-1 search");
-        a.attr("role", "button");
-        a.text(buttonVal);
-        $(".jumbotron").append(a);
-    })
+    // funtion to create images from ajax call
+    function imgResults(results) {
+        for (i = 0; i < results.length; i++) {
+            var div = `<div
+            class="text-center p-1">
+            <img src="${results[i].images.fixed_height_still.url}" 
+            class="rounded" 
+            data-state="still"
+            data-still="${results[i].images.fixed_height_still.url}"
+            data-animate="${results[i].images.fixed_height.url}">
+            <p>Rating ${results[i].rating}</p>
+            </div>
+            `
+            $(".row").prepend(div);
+        }
+        $("img").on("click", function () {
+            imgState = $(this).attr("data-state");
+            imgStill = $(this).attr("data-still")
+            imgAnimate = $(this).attr("data-animate")
+            console.log(imgState);
+            if (imgState === "still") {
+                $(this).attr("data-state", "animate");
+                $(this).attr("src", imgAnimate)
+            } else if (imgState === "animate") {
+                $(this).attr("data-state", "still");
+                $(this).attr("src", imgStill);
+
+            }
+        })
+    }
 
     //create function to search giphy and generate imgs
 
@@ -40,45 +73,27 @@ $(document).ready(function () {
             url: queryURL,
             method: "GET"
         }).then(function (response) {
-            console.log(response)
             results = response.data;
+            imgResults(results)
 
-            for (i = 0; i < results.length; i++) {
-                newDiv = $("<div>");
-                newDiv.addClass("text-center p-1");
-                imgTag = $("<img>");
-                imgTag.attr("src", results[i].images.fixed_height_still.url)
-                imgTag.addClass("rounded")
-                imgTag.attr("data-state", "still")
-                imgTag.attr("data-still", results[i].images.fixed_height_still.url)
-                imgTag.attr("data-animate", results[i].images.fixed_height.url)
-                p = $("<p>").text("Rating " + results[i].rating)
-                newDiv.append(imgTag);
-                newDiv.append(p);
-                $(".row").prepend(newDiv);
-            }
-            $("img").on("click", function () {
-                imgState = $(this).attr("data-state");
-                imgStill = $(this).attr("data-still")
-                imgAnimate = $(this).attr("data-animate")
-                console.log(imgState);
-                if (imgState === "still") {
-                    $(this).attr("data-state", "animate");
-                    $(this).attr("src", imgAnimate)
-                } else if (imgState === "animate") {
-                    $(this).attr("data-state", "still");
-                    $(this).attr("src", imgStill);
-
-                }
-            })
         })
 
 
 
     }
+    // create on click event to grab search box input
+    $("#submit").on("click", function (event) {
+        event.preventDefault();
+        var buttonVal = $("#input").val();
+        $("#input").val("")
 
+        searchButtons(buttonVal)
+    })
+
+    //script to liten when the buttons are clicked
     $(document).on("click", ".search", giphySearch)
 
-
+    //when page loads create the buttons in the array
+    searchButtons()
 
 })
