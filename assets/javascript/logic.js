@@ -86,7 +86,11 @@ $(document).ready(function () {
         var buttonVal = $("#input").val();
         $("#input").val("")
 
-        searchButtons(buttonVal)
+        if (buttonVal === "") {
+            return
+        } else {
+            searchButtons(buttonVal)
+        }
     })
 
     //script to listen when the buttons are clicked
