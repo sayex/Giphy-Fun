@@ -47,7 +47,6 @@ $(document).ready(function () {
             imgState = $(this).attr("data-state");
             imgStill = $(this).attr("data-still")
             imgAnimate = $(this).attr("data-animate")
-            console.log(imgState);
             if (imgState === "still") {
                 $(this).attr("data-state", "animate");
                 $(this).attr("src", imgAnimate)
