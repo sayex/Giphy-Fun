@@ -58,7 +58,7 @@ $(document).ready(function () {
         })
     }
 
-    //create function to search giphy and generate imgs
+    //create function to search giphy
 
     function giphySearch() {
         // create varables to hold search and url
