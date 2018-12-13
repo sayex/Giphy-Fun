@@ -18,11 +18,9 @@ $(document).ready(function () {
     function searchButtons(buttonVal) {
 
         if (typeof (buttonVal) == "undefined") {
-            $("#jumbotron").empty();
             searchButtonHelper();
         } else {
             mySearchs.push(buttonVal)
-            $("#jumbotron").empty();
             searchButtonHelper();
         }
 
