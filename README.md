@@ -8,4 +8,4 @@
 
 ### Take a look at my profile
 
-<https://sayex.github.io/Responsive-Po…>
+<https://sayex.github.io/Responsive-Portfolio/>
